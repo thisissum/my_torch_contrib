@@ -169,3 +169,22 @@ def load_npy(path):
 
 def save_npy(path, data):
     np.save(path, data)
+
+
+
+def pad_sequence(ids, padding=0, length=None):
+    """
+    """
+    if length is None:
+        length = max(map(lambda x:len(x), ids))
+    
+    for i, line in enumerate(ids):
+        if len(line) > length:
+            ids[i] = line[:length]
+        elif len(line) < length:
+            dif = length - len(line) 
+            ids[i] = line + dif * [padding]
+        else:
+            pass
+    
+    return ids
