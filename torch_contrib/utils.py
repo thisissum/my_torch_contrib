@@ -11,17 +11,17 @@ class SentenceReader(object):
         func: function, function to preprocess one line.
     """
 
-    def __init__(self, path, func=None):
+    def __init__(self, path, func=None, encoding='utf-8'):
         self.path = path
         self.func = func
 
     def __iter__(self):
         if self.func is None:
-            with open(self.path, 'r') as f:
+            with open(self.path, 'r', encoding=encoding) as f:
                 for sentence in f:
                     yield sentence
         else:
-            with open(self.path, 'r') as f:
+            with open(self.path, 'r', encoding=encoding) as f:
                 for sentence in f:
                     yield self.func(sentence)
 
@@ -169,7 +169,6 @@ def load_npy(path):
 
 def save_npy(path, data):
     np.save(path, data)
-
 
 
 def pad_sequence(ids, padding=0, length=None):
